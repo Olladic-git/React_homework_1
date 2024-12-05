@@ -1,0 +1,19 @@
+footer {
+    background-color: #774e2e;
+    color: #fff;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 66px 0;
+    gap: 100px;
+}
+
+h2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.3;
+}

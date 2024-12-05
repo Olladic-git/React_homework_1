@@ -1,0 +1,58 @@
+h1 {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 110px;
+    letter-spacing: 5.5px;
+    margin-bottom: 40px;
+}
+h1 span,
+h3 span {
+    color: #F37F34;
+}
+
+header p {
+    margin-bottom: 50px;
+    line-height: 24px;
+}
+
+header {
+    padding-top: 32px;
+    margin-bottom: 220px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    gap: 50px;
+}
+
+.header-container {
+    background-image: url('../../assets/dog.png');
+    height: 600px;
+    display: flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: right center;
+    margin-top: 50px;
+}
+
+.greetings {
+    width: 50%;
+}
+
+.greetings a {
+    display: inline-flex;
+    font-weight: 500;
+    font-size: 20px;
+    color: #fff;
+    padding: 20px;
+    line-height: 130%;
+    letter-spacing: 0.01em;
+    background-color: #774e2e;
+    text-align: center;
+}
