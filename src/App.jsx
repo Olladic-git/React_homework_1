@@ -1,15 +1,14 @@
 import './App.css';
-import Header from './components/Header/header';
-import Main from './components/Main/Main';
-import Footer from './components/Footer/Footer';
+import { ElementWithJSX, ElementWithoutJSX} from './components/Task1/Task1';
+import Form from './components/Task2/Task2';
 
 function App() {
 
   return (
     <>
-      <Header/>
-      <Main/>
-      <Footer/>
+      <ElementWithJSX/>
+      <ElementWithoutJSX/>
+      <Form/>
     </>
   )
 }
