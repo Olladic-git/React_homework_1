@@ -1,15 +1,17 @@
-import './App.css';
-import { ElementWithJSX, ElementWithoutJSX} from './components/Task1/Task1';
-import Form from './components/Task2/Task2';
+import Footer from "./containers/Footer/Footer";
+import Header from "./containers/Header/Header";
+import Main from "./containers/Main/Main";
+import Sidebar from "./containers/Sidebar/Sidebar";
 
 function App() {
 
   return (
-    <>
-      <ElementWithJSX/>
-      <ElementWithoutJSX/>
-      <Form/>
-    </>
+    <div className="container">
+      <Header/>
+      <Main/>
+      <Sidebar/>
+      <Footer/>
+    </div>
   )
 }
 

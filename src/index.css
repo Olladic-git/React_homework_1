@@ -1,0 +1,18 @@
+* {
+    font-family: Fire Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 15px;
+    display: grid;
+    grid-template-areas: 
+        "head head head"
+        "main main sidebar"
+        "foot foot foot";
+}
