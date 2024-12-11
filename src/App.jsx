@@ -1,6 +1,6 @@
-import PushElement from "./containers/Task1";
-import GenerateRandomValue from "./containers/Task2";
-import ChangeColor from "./containers/Task3";
+import PushElement from "./components/Task1";
+import GenerateRandomValue from "./components/Task2";
+import ChangeColor from "./components/Task3";
 
 function App() {
 
