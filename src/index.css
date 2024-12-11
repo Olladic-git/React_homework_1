@@ -3,16 +3,19 @@
 }
 
 body {
-    margin: 0;
+    margin: auto 0px;
+    text-align: center;
+    font-size: 16px;
 }
 
-.container {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 0 15px;
-    display: grid;
-    grid-template-areas: 
-        "head head head"
-        "main main sidebar"
-        "foot foot foot";
+li {
+    list-style: none;
+}
+
+.task-block {
+    padding: 30px;
+}
+
+p {
+    font-weight: bold;
 }
