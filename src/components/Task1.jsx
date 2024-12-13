@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-function PushElement() {
-    const [arr, setArr] = useState([1, 2, 3, 4, 5, 6]);
-    const push = () => {
-        setArr([...arr, generateNumber()])
-    }
-    const generateNumber = () => {
-        return Math.floor(Math.random() * 101)
+function GetAllInputs() {
+    const [user, setUser] = useState({});
+    const inputName = useRef();
+    const inputLastName = useRef();
+    const inputEmail = useRef();
+    
+
+    function push() {
+        setUser({name: inputName.current.value, lastName: inputLastName.current.value, email: inputEmail.current.value});
+        inputName.current.value = '';
+        inputLastName.current.value = '';
+        inputEmail.current.value = '';
     }
 
     return (
         <div className="task-block">
             <h2>Task 1</h2>
-            <ul>
-                {arr.map((el, inx) => (
-                    <li key={inx}>{el}</li>
-                ))}
-            </ul>
-            <button onClick={push}>Push random number</button>
+            <form action="">
+                <input ref={inputName} type="text" placeholder="name..."/> <br />
+                <input ref={inputLastName} type="text" placeholder="last name..."/> <br />
+                <input ref={inputEmail} type="email" placeholder="email..."/> <br />
+            </form>
+            <button onClick={push}>Send data</button>
+            <p>{user.name}</p>
+            <p>{user.lastName}</p>
+            <p>{user.email}</p>
         </div>
     )
 }
 
-export default PushElement;
+export default GetAllInputs;

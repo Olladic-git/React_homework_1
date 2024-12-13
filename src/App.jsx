@@ -1,14 +1,12 @@
-import PushElement from "./components/Task1";
-import GenerateRandomValue from "./components/Task2";
-import ChangeColor from "./components/Task3";
+import PostsAndComments from "./components/Task0";
+import GetAllInputs from "./components/Task1";
 
 function App() {
 
   return (
     <>
-      <PushElement/>
-      <GenerateRandomValue/>
-      <ChangeColor/>
+    <GetAllInputs/>
+    <PostsAndComments/>
     </>
   )
 }
