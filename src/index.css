@@ -1,17 +1,47 @@
-* {
-    font-family: Fire Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@import 'materialize-css/dist/css/materialize.min.css';
 
 body {
-    margin: auto 0px;
-    text-align: center;
-    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(217, 226, 233);
 }
 
-.task-block {
-    padding: 30px;
+span {
+    color: rgb(117, 142, 158);
 }
-.container {
+
+input:focus + label {
+    display:  none;
+}
+
+.todo {
+    margin-bottom: 1.5rem;
+}
+
+.todo.status span {
+    text-decoration: line-through;
+}
+
+.todo label {
+    width: 100%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: rgb(202, 211, 217);
+    padding: 1rem;
+    gap: 20px;
+}
+
+.todo i {
+    z-index: 5;
+}
+
+.none {
+    display: none;
+}
+
+.date span {
+    display: block;
+    font-weight: bold;
 }
