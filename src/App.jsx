@@ -1,56 +1,47 @@
-import { useEffect, useState } from "react";
-import List from "./components/List";
-import CurrentDate from "./components/Date";
-import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from "react-redux";
+import { decrement, increment, useSelectValue } from "./store/slice/counterSlice";
+import { useEffect } from "react";
+import { fetchPosts, 
+         useSelectPosts, 
+         userSelectPostsStatus, 
+         useSelectPostsError } 
+         from "./store/slice/postsSlice";
 
 function App() {
-  const [tasks, setTasks] = useState(() => !localStorage.getItem('tasks') ? [] : JSON.parse(localStorage.getItem('tasks')));
-  const [taskTitle, setTaskTitle] = useState('');
-  const [unfinishedTask, setUnfinishedTask] = useState(() => {
-    return (tasks.filter((task) => task.status === false)).length
-  });
-
-  const checkUnfinishedTask = () => {
-    let newValue = (tasks.filter(task => task.status === false).length);
-    setUnfinishedTask(newValue);
-  }
+  const dispatch = useDispatch();
+  const count = useSelector(useSelectValue);
+  const posts = useSelector(useSelectPosts);
+  const status = useSelector(userSelectPostsStatus);
+  const error= useSelector(useSelectPostsError);
 
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    checkUnfinishedTask()
-  }, [tasks])
-
-  const addTask = (e) => {
-    if(e.key === 'Enter' && taskTitle) {
-      const date = new Date();
-      setTasks([...tasks, {
-        id: uuidv4(),
-        title: taskTitle,
-        status: false,
-        creationDate: {
-          day: date.getDate(),
-          month: date.getMonth(),
-          hours: date.getHours(),
-          minutes: date.getMinutes()
-        }
-      }])
-      setTaskTitle('')
+    if (status === 'idle') {
+      dispatch(fetchPosts())
     }
+  }, [])
+
+  if (status === 'loading') {
+    return (
+      <div>loading ...</div>
+    )
+  }
+  if (status === 'failed') {
+    return <div>{error}</div>
+  }
+
+  const inc = () => {
+    dispatch(increment())
   }
 
   return (
     <div className="container">
-      <h1>Note your task</h1>
-      <CurrentDate/>
-      <div className="input-field">
-        <input type="text" value={taskTitle} 
-        onChange={(e) => setTaskTitle(e.target.value)} 
-        onKeyDown={addTask}
-        />
-        <label className={taskTitle && 'none'}>Task name</label>
-      </div>
-      <List tasks={tasks} setTasks={setTasks}/>
-      <div>Незавершених задач: {unfinishedTask}</div>
+      <h1>Class work</h1>
+      <h2>{count}</h2>
+      <button onClick={inc}>Inc +</button>
+      <button onClick={() => dispatch(decrement())}>Dec -</button>
+      <ul>
+        {posts.map(el => <li key={el.id}>{el.title}</li>)}
+      </ul>
     </div>
   )
 }
