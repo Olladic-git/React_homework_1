@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import ModalWind from './Modal/ModalWind';
 
 const Item = ({ id, title, status, creationDate, setTasks, tasks}) => {
     const [checked, setChecked] = useState(status);
     const [edit, setEdit] = useState(false);
+    const [isModal, setIsModal] = useState(false)
     const classes = ['todo'];
 
 
@@ -23,7 +25,7 @@ const Item = ({ id, title, status, creationDate, setTasks, tasks}) => {
         });
     }
 
-    const removeTask = () => {
+    const onRemoveTask = () => {
         setTasks(tasks.filter((el) => el.id != id))
     }
 
@@ -43,20 +45,21 @@ const Item = ({ id, title, status, creationDate, setTasks, tasks}) => {
   return (
     <div>
       <li className={classes.join(' ')}>
+        {isModal && <ModalWind setIsModal={setIsModal} onRemoveTask={onRemoveTask}/>}
         <label>
             <input type="checkbox" checked={checked} onChange={updateStaus}/>
            {edit ? (<input value={title} onChange={(e) => editTitle(e)}/>) : (<span>{title}</span>)}
-
+        </label>
            <div className='date'>
-            <span>{creationDate.day}.{creationDate.month} 
+            <span>
+                {creationDate.day}.{creationDate.month} 
             </span>
             <span>
                 {creationDate.hours}:{creationDate.minutes}
             </span>
            </div>
             <button onClick={() => setEdit(!edit)}>edit</button>
-            <i className='material-icons red-text' onClick={removeTask}>X</i>
-        </label>
+            <i className='material-icons red-text' onClick={() => setIsModal(true)}>X</i>
       </li>
     </div> 
   )

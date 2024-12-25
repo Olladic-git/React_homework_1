@@ -22,7 +22,7 @@ input:focus + label {
     text-decoration: line-through;
 }
 
-.todo label {
+.todo {
     width: 100%;
     display: flex;
     align-items: center;
@@ -36,6 +36,10 @@ input:focus + label {
 .todo i {
     z-index: 5;
 }
+.input-field input {
+    position: relative;
+    z-index: 100;
+}
 
 .none {
     display: none;
@@ -44,4 +48,7 @@ input:focus + label {
 .date span {
     display: block;
     font-weight: bold;
+}
+.red-text {
+    font-size: 20px;
 }
