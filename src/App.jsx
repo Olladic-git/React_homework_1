@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import List from "./components/List";
 import CurrentDate from "./components/Date";
 import { v4 as uuidv4 } from 'uuid';
+import { MyContext } from "./components/Context";
 
 function App() {
   const [tasks, setTasks] = useState(() => !localStorage.getItem('tasks') ? [] : JSON.parse(localStorage.getItem('tasks')));
@@ -10,10 +11,12 @@ function App() {
     return (tasks.filter((task) => task.status === false)).length
   });
 
-  const checkUnfinishedTask = () => {
+  const manageTask = {tasks, setTasks};
+
+  const checkUnfinishedTask = useCallback(() => {
     let newValue = (tasks.filter(task => task.status === false).length);
     setUnfinishedTask(newValue);
-  }
+  })
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -40,17 +43,19 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Note your task</h1>
-      <CurrentDate/>
-      <div className="input-field">
-        <input type="text" value={taskTitle} 
-        onChange={(e) => setTaskTitle(e.target.value)} 
-        onKeyDown={addTask}
-        />
-        <label className={taskTitle && 'none'}>Task name</label>
-      </div>
-      <List tasks={tasks} setTasks={setTasks}/>
-      <div>Незавершених задач: {unfinishedTask}</div>
+      <MyContext.Provider value={manageTask}>
+        <h1>Note your task</h1>
+        <CurrentDate/>
+        <div className="input-field">
+          <input type="text" value={taskTitle} 
+          onChange={(e) => setTaskTitle(e.target.value)} 
+          onKeyDown={addTask}
+          />
+          <label className={taskTitle && 'none'}>Task name</label>
+        </div>
+        <List />
+        <div>Незавершених задач: {unfinishedTask}</div>
+      </MyContext.Provider>
     </div>
   )
 }
