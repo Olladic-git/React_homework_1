@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import ModalWind from './Modal/ModalWind';
+import { MyContext } from './Context';
 
-const Item = ({ id, title, status, creationDate, setTasks, tasks}) => {
+const Item = ({ id, title, status, creationDate }) => {
     const [checked, setChecked] = useState(status);
     const [edit, setEdit] = useState(false);
     const [isModal, setIsModal] = useState(false)
     const classes = ['todo'];
 
+    const { tasks, setTasks } = useContext(MyContext);
 
     if(checked) {
         classes.push('status');
@@ -25,9 +27,9 @@ const Item = ({ id, title, status, creationDate, setTasks, tasks}) => {
         });
     }
 
-    const onRemoveTask = () => {
+    const onRemoveTask = useCallback(() => {
         setTasks(tasks.filter((el) => el.id != id))
-    }
+    }, [tasks, id]);
 
     const editTitle = (e) => {
         setTasks((prev) => {

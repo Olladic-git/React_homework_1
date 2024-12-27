@@ -3,11 +3,11 @@ import Item from './Item';
 import { MyContext } from './Context';
 
 const List = () => {
-    const {tasks, setTasks} = useContext(MyContext)
+    const { tasks } = useContext(MyContext);
   return (
     <ul>
       {tasks.map((task) => (
-          <Item key={task.id} {...task} setTasks={setTasks} tasks={tasks}/>
+          <Item key={task.id} {...task} />
         ))}
     </ul>
   )

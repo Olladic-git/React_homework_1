@@ -7,49 +7,52 @@ import { MyContext } from "./components/Context";
 function App() {
   const [tasks, setTasks] = useState(() => !localStorage.getItem('tasks') ? [] : JSON.parse(localStorage.getItem('tasks')));
   const [taskTitle, setTaskTitle] = useState('');
-  const [unfinishedTask, setUnfinishedTask] = useState(() => {
-    return (tasks.filter((task) => task.status === false)).length
-  });
+  const [unfinishedTask, setUnfinishedTask] = useState(0);
 
-  const manageTask = {tasks, setTasks};
+  const manageTask = { tasks, setTasks };
 
   const checkUnfinishedTask = useCallback(() => {
-    let newValue = (tasks.filter(task => task.status === false).length);
-    setUnfinishedTask(newValue);
-  })
+    setUnfinishedTask(tasks.filter(task => task.status === false).length);
+  }, [tasks]);
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     checkUnfinishedTask()
   }, [tasks])
 
-  const addTask = (e) => {
-    if(e.key === 'Enter' && taskTitle) {
-      const date = new Date();
-      setTasks([...tasks, {
-        id: uuidv4(),
+  const onAddTask = (e) => {
+    if (e.key === 'Enter' && taskTitle) {
+      addTask({
         title: taskTitle,
-        status: false,
-        creationDate: {
-          day: date.getDate(),
-          month: date.getMonth(),
-          hours: date.getHours(),
-          minutes: date.getMinutes()
-        }
-      }])
-      setTaskTitle('')
+        creationDate: new Date()
+      });
     }
+  }
+
+  const addTask = ({ title, creationDate }) => {
+    setTasks([...tasks, {
+      id: uuidv4(),
+      title: title,
+      status: false,
+      creationDate: {
+        day: creationDate.getDate(),
+        month: creationDate.getMonth(),
+        hours: creationDate.getHours(),
+        minutes: creationDate.getMinutes()
+      }
+    }]);
+    setTaskTitle('');
   }
 
   return (
     <div className="container">
       <MyContext.Provider value={manageTask}>
         <h1>Note your task</h1>
-        <CurrentDate/>
+        <CurrentDate />
         <div className="input-field">
-          <input type="text" value={taskTitle} 
-          onChange={(e) => setTaskTitle(e.target.value)} 
-          onKeyDown={addTask}
+          <input type="text" value={taskTitle}
+            onChange={(e) => setTaskTitle(e.target.value)}
+            onKeyDown={onAddTask}
           />
           <label className={taskTitle && 'none'}>Task name</label>
         </div>
